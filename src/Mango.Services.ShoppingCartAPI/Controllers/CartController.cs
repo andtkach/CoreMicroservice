@@ -3,6 +3,7 @@ using Mango.Services.ShoppingCartAPI.Messages;
 using Mango.Services.ShoppingCartAPI.Models.Dto;
 using Mango.Services.ShoppingCartAPI.RabbitMQSender;
 using Mango.Services.ShoppingCartAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,9 @@ using System.Threading.Tasks;
 namespace Mango.Services.ShoppingCartAPI.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/cart")]
-    public class CartAPIController : Controller
+    public class CartController : Controller
     {
         private readonly ICartRepository _cartRepository;
         private readonly ICouponRepository _couponRepository;
@@ -21,7 +23,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         protected ResponseDto _response;
         private readonly IRabbitMQCartMessageSender _rabbitMQCartMessageSender;
 
-        public CartAPIController(ICartRepository cartRepository, IMessageBus messageBus, 
+        public CartController(ICartRepository cartRepository, IMessageBus messageBus, 
             ICouponRepository couponRepository, IRabbitMQCartMessageSender rabbitMQCartMessageSender)
         {
             _cartRepository = cartRepository;

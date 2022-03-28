@@ -52,7 +52,7 @@ namespace Mango.Services.ShoppingCartAPI
                 .AddJwtBearer("Bearer", options =>
                 {
 
-                    options.Authority = "https://localhost:44365/";
+                    options.Authority = "https://localhost:5021/";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateAudience = false

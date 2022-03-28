@@ -49,7 +49,7 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<T> GetCartByUserIdAsnyc<T>(string userId, string token = null)
+        public async Task<T> GetCartByUserIdAsync<T>(string userId, string token = null)
         {
             return await this.SendAsync<T>(new ApiRequest()
             {

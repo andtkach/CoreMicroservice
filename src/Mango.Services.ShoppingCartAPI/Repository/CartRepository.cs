@@ -60,7 +60,6 @@ namespace Mango.Services.ShoppingCartAPI.Repository
                 await _db.SaveChangesAsync();
             }
 
-
             //check if header is null
             var cartHeaderFromDb = await _db.CartHeaders.AsNoTracking()
                 .FirstOrDefaultAsync(u => u.UserId == cart.CartHeader.UserId);
