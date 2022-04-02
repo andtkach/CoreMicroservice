@@ -67,7 +67,7 @@ namespace Mango.Services.OrderAPI.Messaging
             await orderUpdatePaymentStatusProcessor.StopProcessingAsync();
             await orderUpdatePaymentStatusProcessor.DisposeAsync();
         }
-        Task ErrorHandler(ProcessErrorEventArgs args)
+        private Task ErrorHandler(ProcessErrorEventArgs args)
         {
             Console.WriteLine(args.Exception.ToString());
             return Task.CompletedTask;
