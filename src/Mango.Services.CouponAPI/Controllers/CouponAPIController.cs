@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace Mango.Services.CouponAPI.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/coupon")]
     public class CouponAPIController : Controller
     {
