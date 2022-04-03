@@ -71,8 +71,6 @@ namespace Mango.Services.PaymentAPI.Messaging
             try
             {
                 _rabbitMQPaymentMessageSender.SendMessage(updatePaymentResultMessage);
-               // await _messageBus.PublishMessage(updatePaymentResultMessage, orderupdatepaymentresulttopic);
-               // await args.CompleteMessageAsync(args.Message);
             }
             catch (Exception e)
             {

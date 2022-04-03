@@ -1,7 +1,6 @@
 using AutoMapper;
 using Mango.MessageBus;
 using Mango.Services.OrderAPI.DbContexts;
-using Mango.Services.OrderAPI.Extension;
 using Mango.Services.OrderAPI.Messaging;
 using Mango.Services.OrderAPI.RabbitMQSender;
 using Mango.Services.OrderAPI.Repository;
@@ -51,8 +50,6 @@ namespace Mango.Services.OrderAPI
             services.AddHostedService<RabbitMQPaymentConsumer>();
             services.AddHostedService<RabbitMQCheckoutConsumer>();
             services.AddSingleton(new OrderRepository(optionBuilder.Options));
-            services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
-            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
             services.AddSingleton<IRabbitMQOrderMessageSender, RabbitMQOrderMessageSender>();
             services.AddControllers();
 
@@ -132,7 +129,6 @@ namespace Mango.Services.OrderAPI
                 endpoints.MapControllers();
             });
 
-            app.UseAzureServiceBusConsumer();
         }
     }
 }

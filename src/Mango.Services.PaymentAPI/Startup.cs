@@ -1,5 +1,4 @@
 using Mango.MessageBus;
-using Mango.Services.PaymentAPI.Extension;
 using Mango.Services.PaymentAPI.Messaging;
 using Mango.Services.PaymentAPI.RabbitMQSender;
 using Microsoft.AspNetCore.Builder;
@@ -32,8 +31,6 @@ namespace Mango.Services.PaymentAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IProcessPayment, ProcessPayment>();
-            services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
-            services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
             services.AddSingleton<IRabbitMQPaymentMessageSender, RabbitMQPaymentMessageSender>();
             services.AddHostedService<RabbitMQPaymentConsumer>();
             services.AddControllers();
@@ -63,7 +60,6 @@ namespace Mango.Services.PaymentAPI
             {
                 endpoints.MapControllers();
             });
-            app.UseAzureServiceBusConsumer();
         }
     }
 }

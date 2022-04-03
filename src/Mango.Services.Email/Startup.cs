@@ -1,6 +1,4 @@
 using Mango.Services.Email.DbContexts;
-using Mango.Services.Email.Extension;
-using Mango.Services.Email.Messaging;
 using Mango.Services.Email.Repository;
 using Mango.Services.PaymentAPI.Messaging;
 using Microsoft.AspNetCore.Builder;
@@ -29,21 +27,17 @@ namespace Mango.Services.Email
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-            //services.AddSingleton(mapper);
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddHostedService<RabbitMQPaymentConsumer>();
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             services.AddSingleton(new EmailRepository(optionBuilder.Options));
-            services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -51,7 +45,6 @@ namespace Mango.Services.Email
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -71,7 +64,6 @@ namespace Mango.Services.Email
             {
                 endpoints.MapControllers();
             });
-            app.UseAzureServiceBusConsumer();
         }
     }
 }

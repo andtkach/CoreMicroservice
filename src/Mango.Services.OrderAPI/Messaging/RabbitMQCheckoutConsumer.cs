@@ -104,8 +104,6 @@ namespace Mango.Services.OrderAPI.Messaging
 
             try
             {
-                //await _messageBus.PublishMessage(paymentRequestMessage, orderPaymentProcessTopic);
-                //await args.CompleteMessageAsync(args.Message);
                 _rabbitMQOrderMessageSender.SendMessage(paymentRequestMessage, "orderpaymentprocesstopic");
             }
             catch (Exception e)
